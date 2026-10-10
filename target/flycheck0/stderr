@@ -1,5 +1,5 @@
-   0.027624075s  INFO prepare_target{force=false package_id=firmblop v0.1.0 (/home/will/git/max17320) target="firmblop"}: cargo::core::compiler::fingerprint: fingerprint error for firmblop v0.1.0 (/home/will/git/max17320)/Check { test: true }/TargetInner { name: "firmblop", doc: true, ..: with_path("/home/will/git/max17320/src/main.rs", Edition2024) }
-   0.027643642s  INFO prepare_target{force=false package_id=firmblop v0.1.0 (/home/will/git/max17320) target="firmblop"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/will/git/max17320/target/debug/.fingerprint/firmblop-24df0662780c182d/test-bin-firmblop`
+   0.029104435s  INFO prepare_target{force=false package_id=firmblop v0.1.0 (/home/will/git/max17320) target="firmblop"}: cargo::core::compiler::fingerprint: fingerprint error for firmblop v0.1.0 (/home/will/git/max17320)/Check { test: true }/TargetInner { name: "firmblop", doc: true, ..: with_path("/home/will/git/max17320/src/main.rs", Edition2024) }
+   0.029121557s  INFO prepare_target{force=false package_id=firmblop v0.1.0 (/home/will/git/max17320) target="firmblop"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/will/git/max17320/target/debug/.fingerprint/firmblop-24df0662780c182d/test-bin-firmblop`
 
 Caused by:
     No such file or directory (os error 2)
