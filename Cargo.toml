@@ -1,0 +1,13 @@
+[package]
+name = "firmblop"
+version = "0.1.0"
+edition = "2024"
+
+
+
+# i don't think there's much else is there....
+[dependencies]
+stm32h7xx-hal = { version = "0.16", features = ["stm32h735"] }
+cortex-m = "0.7"
+cortex-m-rt = "0.7"
+panic-halt = "1"

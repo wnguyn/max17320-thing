@@ -1,0 +1,58 @@
+   0.038344799s  INFO prepare_target{force=false package_id=firmblop v0.1.0 (/home/will/git/max17320) target="firmblop"}: cargo::core::compiler::fingerprint: fingerprint error for firmblop v0.1.0 (/home/will/git/max17320)/Check { test: false }/TargetInner { name: "firmblop", doc: true, ..: with_path("/home/will/git/max17320/src/main.rs", Edition2024) }
+   0.038367181s  INFO prepare_target{force=false package_id=firmblop v0.1.0 (/home/will/git/max17320) target="firmblop"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/will/git/max17320/target/debug/.fingerprint/firmblop-31a3dfd11cb52fb9/bin-firmblop`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <std::io::error::Error as anyhow::context::ext::StdError>::ext_context::<alloc::string::String>
+   1: cargo_util::paths::read
+   2: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   3: cargo::core::compiler::fingerprint::prepare_target
+   4: cargo::core::compiler::compile
+   5: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   6: cargo::ops::cargo_compile::compile_ws
+   7: cargo::ops::cargo_compile::compile_with_exec
+   8: cargo::ops::cargo_compile::compile
+   9: cargo::commands::check::exec
+  10: <cargo::cli::Exec>::exec
+  11: cargo::cli::main
+  12: cargo::main
+  13: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  14: std::rt::lang_start::<()>::{closure#0}
+  15: std::rt::lang_start_internal
+  16: main
+  17: __libc_start_call_main
+  18: __libc_start_main_alias_2
+  19: _start
+   0.043578576s  INFO prepare_target{force=false package_id=firmblop v0.1.0 (/home/will/git/max17320) target="firmblop"}: cargo::core::compiler::fingerprint: fingerprint error for firmblop v0.1.0 (/home/will/git/max17320)/Check { test: true }/TargetInner { name: "firmblop", doc: true, ..: with_path("/home/will/git/max17320/src/main.rs", Edition2024) }
+   0.043589426s  INFO prepare_target{force=false package_id=firmblop v0.1.0 (/home/will/git/max17320) target="firmblop"}: cargo::core::compiler::fingerprint:     err: failed to read `/home/will/git/max17320/target/debug/.fingerprint/firmblop-24df0662780c182d/test-bin-firmblop`
+
+Caused by:
+    No such file or directory (os error 2)
+
+Stack backtrace:
+   0: <std::io::error::Error as anyhow::context::ext::StdError>::ext_context::<alloc::string::String>
+   1: cargo_util::paths::read
+   2: cargo::core::compiler::fingerprint::_compare_old_fingerprint
+   3: cargo::core::compiler::fingerprint::prepare_target
+   4: cargo::core::compiler::compile
+   5: <cargo::core::compiler::build_runner::BuildRunner>::compile
+   6: cargo::ops::cargo_compile::compile_ws
+   7: cargo::ops::cargo_compile::compile_with_exec
+   8: cargo::ops::cargo_compile::compile
+   9: cargo::commands::check::exec
+  10: <cargo::cli::Exec>::exec
+  11: cargo::cli::main
+  12: cargo::main
+  13: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+  14: std::rt::lang_start::<()>::{closure#0}
+  15: std::rt::lang_start_internal
+  16: main
+  17: __libc_start_call_main
+  18: __libc_start_main_alias_2
+  19: _start
+    Checking firmblop v0.1.0 (/home/will/git/max17320)
+error: could not compile `firmblop` (bin "firmblop" test) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `firmblop` (bin "firmblop") due to 1 previous error; 1 warning emitted
