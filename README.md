@@ -31,4 +31,5 @@ flash:
 
 ```sh
 ```
-
+## other
+special shoutout to https://github.com/eldruin/max170xx-rs
