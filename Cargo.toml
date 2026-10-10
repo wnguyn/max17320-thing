@@ -11,3 +11,8 @@ stm32h7xx-hal = { version = "0.16", features = ["stm32h735"] }
 cortex-m = "0.7"
 cortex-m-rt = "0.7"
 panic-halt = "1"
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"

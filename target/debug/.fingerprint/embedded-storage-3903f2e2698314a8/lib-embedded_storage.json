@@ -1,0 +1,1 @@
+{"rustc":17897083425984401722,"features":"[]","declared_features":"[\"defmt\"]","target":8309140192669564680,"profile":7940833603141951942,"path":6684005872927291823,"deps":[],"local":[{"CheckDepInfo":{"dep_info":"debug/.fingerprint/embedded-storage-3903f2e2698314a8/dep-lib-embedded_storage","checksum":false}}],"rustflags":[],"config":8247474407144887393,"compile_kind":0}

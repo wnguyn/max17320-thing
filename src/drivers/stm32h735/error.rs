@@ -1,5 +1,6 @@
+// generic type for more portability
 #[derive(Debug)]
-pub enum Error<T> {
+pub enum BmsError<T> {
     I2c(T),
-    PoorData,
+    SixSevenData,
 }
