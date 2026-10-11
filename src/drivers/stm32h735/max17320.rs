@@ -11,13 +11,14 @@ pub enum CellType {
     BatIII,
     BatIV,
 }
-pub struct BMS<I2C: WriteRead<Error = i2c::Error>> {
-    i2c: I2C,
+// generics because it's more portable for testing.
+pub struct BMS<T: WriteRead<Error = i2c::Error>> {
+    i2c: T,
 }
 
-impl<I2C: WriteRead<Error = i2c::Error>> BMS<I2C> {
+impl<T: WriteRead<Error = i2c::Error>> BMS<T> {
     // get I2c from Peripherals::take()
-    pub fn new(i2c: I2C) -> Self {
+    pub fn new(i2c: T) -> Self {
         Self { i2c }
     }
 
