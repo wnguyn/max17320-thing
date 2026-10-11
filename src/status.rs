@@ -14,10 +14,9 @@ pub struct BmsStatus {
 }
 
 impl BmsStatus {
-    pub fn status<I2C>(bms: &mut BMS<I2C>) -> Result<Self, BmsError<i2c::Error>>
-    where
-        I2C: stm32h7xx_hal::hal::blocking::i2c::WriteRead<Error = i2c::Error>,
-    {
+    pub fn status<T: stm32h7xx_hal::hal::blocking::i2c::WriteRead<Error = i2c::Error>>(
+        bms: &mut BMS<T>,
+    ) -> Result<Self, BmsError<i2c::Error>> {
         Ok(Self {
             soc_percent: bms.remaining_soc()?,
 
@@ -38,5 +37,31 @@ impl BmsStatus {
                 bms.batcelltemp(CellType::BatIV)?,
             ],
         })
+    }
+    // kinda janky way to give UART a status report for everything
+    // but whatever man....
+    pub fn encode(&self) -> [u8; 44] {
+        let mut buf = [0u8; 44];
+        let values = [
+            self.soc_percent,
+            self.pack_voltage_v,
+            self.current_a,
+            self.cell_voltage_v[0],
+            self.cell_voltage_v[1],
+            self.cell_voltage_v[2],
+            self.cell_voltage_v[3],
+            self.temperature_c[0],
+            self.temperature_c[1],
+            self.temperature_c[2],
+            self.temperature_c[3],
+        ];
+
+        for (i, value) in values.iter().enumerate() {
+            let bytes = value.to_le_bytes();
+            let start = i * 4;
+            buf[start..start + 4].copy_from_slice(&bytes);
+        }
+
+        buf
     }
 }

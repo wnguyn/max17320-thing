@@ -1,7 +1,6 @@
 #![no_std]
 #![no_main]
 
-use core::fmt::Write;
 use cortex_m_rt::entry;
 use firmblop::drivers::stm32h735::max17320::BMS;
 use panic_halt as _;
@@ -20,7 +19,7 @@ fn main() -> ! {
 
     let gpiob = dp.GPIOB.split(ccdr.peripheral.GPIOB);
     let gpioc = dp.GPIOC.split(ccdr.peripheral.GPIOC);
-    // pins are temporary
+    // pins are temporary FIND IT ONCE CONTROL BOARD IS MADE!
     let scl = gpiob.pb8.into_alternate_open_drain::<4>();
     let sda = gpiob.pb9.into_alternate_open_drain::<4>();
 

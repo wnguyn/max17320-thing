@@ -9,16 +9,6 @@ pub enum BmsState {
     Discharging,
     Fault(FaultReason),
 }
-#[derive(Clone, Copy)]
-pub enum FaultReason {
-    OverCurrent,
-    CellOverVoltage,
-    CellUnderVoltage,
-    HighTemperature,
-    LowTemperature,
-    CellVoltageSensorFault,
-    CommsFault,
-}
 
 // I actually don't know if this is gonna be used
 #[derive(Clone, Copy)]
@@ -30,4 +20,11 @@ pub enum FaultReason {
     LowTemperature,
     CellVoltageSensorFault,
     CommsFault,
+}
+
+pub enum JetsonMessage {
+    Status(BmsState),
+    Event(FaultReason),
+    Fault(FaultReason),
+    Tick,
 }
