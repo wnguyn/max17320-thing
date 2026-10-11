@@ -1,5 +1,3 @@
-// implement custom error type??
-mod error;
-mod measurements;
+pub mod error;
+pub mod max17320;
 mod registers;
-mod status;

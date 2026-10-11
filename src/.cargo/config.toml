@@ -1,0 +1,3 @@
+[build]
+target = "thumbv7em-none-eabihf"
+rustc = "/home/will/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc"

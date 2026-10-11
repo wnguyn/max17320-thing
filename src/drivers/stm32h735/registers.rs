@@ -2,7 +2,6 @@ pub struct Register;
 
 // Muchas gracias Evan Wu por los comentarios
 impl Register {
-    // MAX17320 I²C device addresses
     pub const MAX17320_ADDR: u8 = 0x36;
     pub const MAX17320_NV_ADDR: u8 = 0x0B;
 
@@ -47,7 +46,6 @@ impl Register {
     pub const BMS_REG_AVG_TEMP3: u16 = 0x134;
     pub const BMS_REG_AVG_TEMP4: u16 = 0x133;
 
-    // ModelGauge m5 Algorithm estimates
     pub const BMS_REG_REP_CAP: u16 = 0x005;
     pub const BMS_REG_REP_SOC: u16 = 0x006;
     pub const BMS_REG_FULL_CAP_REP: u16 = 0x10;
@@ -64,11 +62,4 @@ impl Register {
     pub const BMS_REG_RCELL: u16 = 0x14; // Displays calculated internal resistance of the cell or the average internal resistance of the cell stack
 
     // Rest of Register supported by MAx17320 are to be implemented as the application needed
-}
-
-pub enum WhatCell {
-    Cell_1,
-    Cell_2,
-    Cell_3,
-    Cell_4,
 }

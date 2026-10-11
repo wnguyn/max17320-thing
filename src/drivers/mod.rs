@@ -1,1 +1,1 @@
-mod stm32735;
+pub mod stm32h735;
