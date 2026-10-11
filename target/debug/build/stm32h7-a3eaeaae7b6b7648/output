@@ -1,3 +1,0 @@
-cargo:rustc-link-search=/home/will/git/max17320/target/debug/build/stm32h7-a3eaeaae7b6b7648/out
-cargo:rerun-if-changed=src/stm32h735/device.x
-cargo:rerun-if-changed=build.rs
