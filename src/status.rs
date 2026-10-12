@@ -1,6 +1,6 @@
 use crate::drivers::stm32h735::error::BmsError;
 use crate::drivers::stm32h735::max17320::{CellType, BMS};
-use stm32h7xx_hal::i2c;
+use embedded_hal::i2c::I2c;
 
 #[derive(Debug, Clone, Copy)]
 pub struct BmsStatus {
@@ -14,9 +14,9 @@ pub struct BmsStatus {
 }
 
 impl BmsStatus {
-    pub fn status<T: stm32h7xx_hal::hal::blocking::i2c::WriteRead<Error = i2c::Error>>(
+    pub fn status<T: I2c>(
         bms: &mut BMS<T>,
-    ) -> Result<Self, BmsError<i2c::Error>> {
+    ) -> Result<Self, BmsError<T::Error>> {
         Ok(Self {
             soc_percent: bms.remaining_soc()?,
 
@@ -38,8 +38,6 @@ impl BmsStatus {
             ],
         })
     }
-    // kinda janky way to give UART a status report for everything
-    // but whatever man....
     pub fn encode(&self) -> [u8; 44] {
         let mut buf = [0u8; 44];
         let values = [

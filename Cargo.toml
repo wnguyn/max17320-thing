@@ -3,17 +3,17 @@ name = "firmblop"
 version = "0.1.0"
 edition = "2024"
 
-
-
-# i don't think there's much else is there....
 [dependencies]
-stm32h7xx-hal = { version = "0.16", features = ["stm32h735", "usb_hs"] }
-cortex-m = "0.7"
-cortex-m-rt = "0.7"
-panic-halt = "1"
-static_cell = "2"
+embassy-executor = { version = "0.10", features = ["platform-cortex-m", "executor-thread"] }
+embassy-stm32 = { version = "0.6", features = ["stm32h735vg", "memory-x"] }
 usb-device = "0.3"
 usbd-serial = "0.2"
+embedded-hal = "1"
+embedded-hal-nb = "1"
+nb = "1"
+cortex-m = { version = "0.7", features = ["critical-section-single-core"] }
+cortex-m-rt = "0.7"
+panic-halt = "1"
 [profile.dev]
 panic = "abort"
 

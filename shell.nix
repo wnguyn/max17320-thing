@@ -8,7 +8,4 @@ pkgs.mkShell {
   ];
 
   RUSTUP_TOOLCHAIN = "stable";
-  # we'll do something here later 
-  shellHook = ''
-  '';
 }

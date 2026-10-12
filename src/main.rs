@@ -1,58 +1,47 @@
 #![no_std]
 #![no_main]
 
-use cortex_m_rt::entry;
+use embassy_executor::Spawner;
+use embassy_stm32::{
+    gpio::Speed,
+    i2c::{Config as I2cConfig, I2c},
+    rcc::{AHBPrescaler, APBPrescaler, Pll, PllDiv, PllMul, PllPreDiv, PllSource, Sysclk, VoltageScale},
+    time::Hertz,
+    usart::{Config as UartConfig, Uart},
+};
 use firmblop::drivers::stm32h735::max17320::BMS;
 use panic_halt as _;
-use static_cell::ConstStaticCell;
-use stm32h7xx_hal::{
-    pac,
-    prelude::*,
-    rcc::rec::UsbClkSel,
-    usb_hs::{UsbBus, USB1},
-};
-use usb_device::{prelude::*, UsbError};
 
-static EP_MEMORY: ConstStaticCell<[u32; 1024]> = ConstStaticCell::new([0; 1024]);
+#[embassy_executor::main]
+async fn main(_spawner: Spawner) {
+    let mut config = embassy_stm32::Config::default();
+    config.rcc.pll1 = Some(Pll {
+        source: PllSource::HSI,
+        prediv: PllPreDiv::DIV4,
+        mul: PllMul::MUL25,
+        divp: Some(PllDiv::DIV2),
+        divq: None,
+        divr: Some(PllDiv::DIV4),
+    });
+    config.rcc.sys = Sysclk::PLL1_P;
+    config.rcc.ahb_pre = AHBPrescaler::DIV2;
+    config.rcc.apb1_pre = APBPrescaler::DIV2;
+    config.rcc.apb2_pre = APBPrescaler::DIV2;
+    config.rcc.apb3_pre = APBPrescaler::DIV2;
+    config.rcc.apb4_pre = APBPrescaler::DIV2;
+    config.rcc.voltage_scale = VoltageScale::Scale1;
+    let p = embassy_stm32::init(config);
 
-#[entry]
-fn main() -> ! {
-    // init I2C on the stm32h735
-    let dp = pac::Peripherals::take().unwrap();
+    let mut i2c_config = I2cConfig::default();
+    i2c_config.frequency = Hertz(100_000);
+    i2c_config.gpio_speed = Speed::Low;
+    let i2c = I2c::new_blocking(p.I2C1, p.PB8, p.PB9, i2c_config);
 
-    let pwr = dp.PWR.constrain();
-    let pwrcfg = pwr.freeze();
-    let rcc = dp.RCC.constrain();
+    let mut uart_config = UartConfig::default();
+    uart_config.baudrate = 115_200;
+    let serial = Uart::new_blocking(p.USART3, p.PC11, p.PC10, uart_config).unwrap();
+    let (_tx, _rx) = serial.split();
+    let _bms = BMS::new(i2c);
 
-    let mut ccdr = rcc.sys_ck(200.MHz()).freeze(pwrcfg, &dp.SYSCFG);
-
-    let gpiob = dp.GPIOB.split(ccdr.peripheral.GPIOB);
-    let gpioc = dp.GPIOC.split(ccdr.peripheral.GPIOC);
-    // pins are temporary FIND IT ONCE CONTROL BOARD IS MADE!
-    let scl = gpiob.pb8.into_alternate_open_drain::<4>();
-    let sda = gpiob.pb9.into_alternate_open_drain::<4>();
-
-    let i2c = dp
-        .I2C1
-        .i2c((scl, sda), 100.kHz(), ccdr.peripheral.I2C1, &ccdr.clocks);
-    let tx = gpioc.pc10.into_alternate();
-    let rx = gpioc.pc11.into_alternate();
-    // init UART on the stm32h732
-    let serial = dp
-        .USART3
-        .serial(
-            (tx, rx),
-            115_200.bps(),
-            ccdr.peripheral.USART3,
-            &ccdr.clocks,
-        )
-        .unwrap();
-
-    let (mut tx, mut rx) = serial.split();
-
-    let mut bms = BMS::new(i2c);
-
-    loop {
-
-    }
+    loop {}
 }

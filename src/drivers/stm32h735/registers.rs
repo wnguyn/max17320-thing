@@ -1,6 +1,5 @@
 pub struct Register;
 
-// Muchas gracias Evan Wu por los comentarios
 impl Register {
     pub const MAX17320_ADDR: u8 = 0x36;
     pub const MAX17320_NV_ADDR: u8 = 0x0B;
@@ -17,26 +16,23 @@ impl Register {
     pub const BMS_REG_AVG_CELL3: u16 = 0xD2;
     pub const BMS_REG_AVG_CELL4: u16 = 0xD1;
 
-    pub const BMS_REG_BATT: u16 = 0xDA; // Contains total pack voltage measured inside the protector on a 20.48V scale
-    pub const BMS_REG_PCKP: u16 = 0xDB; // Contains the voltage between PACK+ and GND on a 20.48V scale
-    pub const BMS_REG_MAX_MIN_VOLT: u16 = 0x0008; // Retains the max and min of all cell voltage readings since device reset
+    pub const BMS_REG_BATT: u16 = 0xDA;
+    pub const BMS_REG_PCKP: u16 = 0xDB;
+    pub const BMS_REG_MAX_MIN_VOLT: u16 = 0x0008;
 
-    // Current Measurement
     pub const BMS_REG_CURRENT: u16 = 0x1C;
     pub const BMS_REG_AVG_CURRENT: u16 = 0x1D;
     pub const BMS_REG_MAX_MIN_CURR: u16 = 0x00A;
-    pub const BMS_REG_nCGAIN: u16 = 0x1C8; // Recommended facotry default is 0x4000 which applies no adjustment to current reading
+    pub const BMS_REG_nCGAIN: u16 = 0x1C8;
     pub const BMS_REG_nRSense: u16 = 0x1CF;
 
-    // Temperature measurement
-    pub const BMS_REG_TEMP: u16 = 0x1B; // Reflects the maximum thermistor temperature if enable; die-temperature if thermistors are disabled
-    pub const BMS_REG_AVG_TA: u16 = 0x16; // Average of readings from Temp register
-    pub const BMS_REG_MAX_MIN_TEMP: u16 = 0x009; // maintains max and min temp register values (01Bh) since fuel-gauge reset
+    pub const BMS_REG_TEMP: u16 = 0x1B;
+    pub const BMS_REG_AVG_TA: u16 = 0x16;
+    pub const BMS_REG_MAX_MIN_TEMP: u16 = 0x009;
     pub const BMS_REG_nThermCFG: u16 = 0x1CA;
     pub const BMS_REG_DIE_TEMP: u16 = 0x34;
     pub const BMS_REG_AVG_DIE_TEMP: u16 = 0x40;
 
-    // Readings from Thermistor 1-4 (if enabled)
     pub const BMS_REG_TEMP1: u16 = 0x13A;
     pub const BMS_REG_TEMP2: u16 = 0x139;
     pub const BMS_REG_TEMP3: u16 = 0x138;
@@ -53,13 +49,12 @@ impl Register {
     pub const BMS_REG_TIME_TO_FULL: u16 = 0x20;
     pub const BMS_REG_AGE: u16 = 0x007;
     pub const BMS_REG_CYCLES: u16 = 0x017;
-    pub const BMS_REG_NCycles: u16 = 0x1A4; // Nonvolatile backup for Cycles register (017h)
+    pub const BMS_REG_NCycles: u16 = 0x1A4;
 
     pub const BMS_REG_TIMER: u16 = 0x3E;
-    pub const BMS_REG_TIMER_H: u16 = 0xBE; // Allows IC to trak the age of the cell
-    pub const BMS_REG_FULL_CAP: u16 = 0x35; // Holds calculated full capacity of the cell based on all inputs from ModelGauge m5 algorithm including empty compensation
-    pub const BMS_REG_FULL_CAP_NOM: u16 = 0x1A5; // Holds calculated full capacity of the cell, excluding temperature and empty compensation
-    pub const BMS_REG_RCELL: u16 = 0x14; // Displays calculated internal resistance of the cell or the average internal resistance of the cell stack
+    pub const BMS_REG_TIMER_H: u16 = 0xBE;
+    pub const BMS_REG_FULL_CAP: u16 = 0x35;
+    pub const BMS_REG_FULL_CAP_NOM: u16 = 0x1A5;
+    pub const BMS_REG_RCELL: u16 = 0x14;
 
-    // Rest of Register supported by MAx17320 are to be implemented as the application needed
 }
