@@ -27,8 +27,16 @@ impl<T: Write<u8>> JetsonUART<T> {
         for &byte in bytes {
             self.send_byte(byte)?;
         }
-
         block!(self.tx.flush())
+    }
+    pub fn recv(&mut self) -> Result<Option<u8>, E> {
+        match self.uart.read() {
+            Ok(byte) => Ok(Some(byte)),
+
+            Err(nb::Error::WouldBlock) => Ok(None),
+
+            Err(nb::Error::Other(e)) => Err(e),
+        }
     }
 }
 

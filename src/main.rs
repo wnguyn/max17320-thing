@@ -53,6 +53,6 @@ fn main() -> ! {
     let mut bms = BMS::new(i2c);
 
     loop {
-        // SIX SEVEN
+
     }
 }
