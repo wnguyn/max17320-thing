@@ -1,6 +1,6 @@
-## Getting started
+## something-cool
 
-Install [Nix](https://nixos.org/download/). The Nix package manager both supports darwin and linux. I don't know what you are gonna do on Windows though.
+Install [Nix](https://nixos.org/download/). The Nix package manager both supports MacOS and GNU/Linux. I don't know what you are gonna do on Windows though. Please use WSL or QEMU or something, or just switch to a Mac.
 
 ```sh
 nix-shell
