@@ -4,7 +4,16 @@
 use cortex_m_rt::entry;
 use firmblop::drivers::stm32h735::max17320::BMS;
 use panic_halt as _;
-use stm32h7xx_hal::{pac, prelude::*};
+use static_cell::ConstStaticCell;
+use stm32h7xx_hal::{
+    pac,
+    prelude::*,
+    rcc::rec::UsbClkSel,
+    usb_hs::{UsbBus, USB1},
+};
+use usb_device::{prelude::*, UsbError};
+
+static EP_MEMORY: ConstStaticCell<[u32; 1024]> = ConstStaticCell::new([0; 1024]);
 
 #[entry]
 fn main() -> ! {
@@ -15,7 +24,7 @@ fn main() -> ! {
     let pwrcfg = pwr.freeze();
     let rcc = dp.RCC.constrain();
 
-    let ccdr = rcc.sys_ck(200.MHz()).freeze(pwrcfg, &dp.SYSCFG);
+    let mut ccdr = rcc.sys_ck(200.MHz()).freeze(pwrcfg, &dp.SYSCFG);
 
     let gpiob = dp.GPIOB.split(ccdr.peripheral.GPIOB);
     let gpioc = dp.GPIOC.split(ccdr.peripheral.GPIOC);
@@ -28,7 +37,7 @@ fn main() -> ! {
         .i2c((scl, sda), 100.kHz(), ccdr.peripheral.I2C1, &ccdr.clocks);
     let tx = gpioc.pc10.into_alternate();
     let rx = gpioc.pc11.into_alternate();
-    // init UART on the stm32h735
+    // init UART on the stm32h732
     let serial = dp
         .USART3
         .serial(
@@ -44,6 +53,6 @@ fn main() -> ! {
     let mut bms = BMS::new(i2c);
 
     loop {
-        // SIX SEVEN!
+        // SIX SEVEN
     }
 }
