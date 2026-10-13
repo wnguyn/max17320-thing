@@ -15,6 +15,7 @@ use panic_halt as _;
 #[embassy_executor::main]
 async fn main(_spawner: Spawner) {
     let mut config = embassy_stm32::Config::default();
+    // init embassy boilerplate on the thingies
     config.rcc.pll1 = Some(Pll {
         source: PllSource::HSI,
         prediv: PllPreDiv::DIV4,
@@ -32,11 +33,14 @@ async fn main(_spawner: Spawner) {
     config.rcc.voltage_scale = VoltageScale::Scale1;
     let p = embassy_stm32::init(config);
 
+    // init I2C
     let mut i2c_config = I2cConfig::default();
     i2c_config.frequency = Hertz(100_000);
     i2c_config.gpio_speed = Speed::Low;
     let i2c = I2c::new_blocking(p.I2C1, p.PB8, p.PB9, i2c_config);
 
+
+    // init UART
     let mut uart_config = UartConfig::default();
     uart_config.baudrate = 115_200;
     let serial = Uart::new_blocking(p.USART3, p.PC11, p.PC10, uart_config).unwrap();

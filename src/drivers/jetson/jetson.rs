@@ -6,11 +6,18 @@ use usb_device::{
 };
 use usbd_serial::{SerialPort, USB_CLASS_CDC};
 
-pub struct JetsonUART<T> {
+// generics to send and recieve over UART i think?
+// i still don't know whether we'd use usb or UART for this?
+pub struct JetsonUART<T, R> {
     tx: T,
+    rx: R,
 }
 
-impl<T: Write<u8>> JetsonUART<T> {
+impl<T, R> JetsonUART<T, R>
+where
+    T: Write<u8>,
+    R: Read<u8>,
+{
     pub fn new(tx: T) -> Self {
         Self { tx }
     }
@@ -25,6 +32,14 @@ impl<T: Write<u8>> JetsonUART<T> {
         }
         nb::block!(self.tx.flush())
     }
+    // TODO: this is super fucking janky hopefulyl this is later on issue
+    pub async fn read_uart(&mut self) {
+        let mut buf = [0u8; 32];
+        let n = self.rx.read_until_idle(&mut buf).await.unwrap();
+        let data = &buf[..n];
+
+        // do some matching here later?????
+    }
 }
 
 impl<T: Read<u8>> JetsonUART<T> {
@@ -38,7 +53,8 @@ impl<T: Read<u8>> JetsonUART<T> {
         }
     }
 }
-
+// USB interface to connect over i2c for this? but like i don't know
+// we'll probably stick to basic UART communication.
 pub struct JetsonUSB<T: 'static + UsbBus> {
     dev: UsbDevice<'static, T>,
     serial: SerialPort<'static, T>,

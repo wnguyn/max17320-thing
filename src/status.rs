@@ -13,10 +13,11 @@ pub struct BmsStatus {
     pub temperature_c: [f32; 4],
 }
 
+// pull struct data to make a nice little thing to send over i2c.
+// current implementation is like it returns a generic error (again this is just a generic library)
+// because it's just easier and being more conservative is fine imo.
 impl BmsStatus {
-    pub fn status<T: I2c>(
-        bms: &mut BMS<T>,
-    ) -> Result<Self, BmsError<T::Error>> {
+    pub fn status<T: I2c>(bms: &mut BMS<T>) -> Result<Self, BmsError<T::Error>> {
         Ok(Self {
             soc_percent: bms.remaining_soc()?,
 
@@ -38,6 +39,7 @@ impl BmsStatus {
             ],
         })
     }
+    // encode data to be sent over UART for the jetson, kinda crude but whatever lol
     pub fn encode(&self) -> [u8; 44] {
         let mut buf = [0u8; 44];
         let values = [

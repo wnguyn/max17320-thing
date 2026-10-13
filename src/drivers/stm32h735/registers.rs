@@ -1,5 +1,7 @@
 pub struct Register;
 
+// please read documentation on Box for whatever these mean,
+// i mean i don't really know what these mean either LOL
 impl Register {
     pub const MAX17320_ADDR: u8 = 0x36;
     pub const MAX17320_NV_ADDR: u8 = 0x0B;
@@ -56,5 +58,4 @@ impl Register {
     pub const BMS_REG_FULL_CAP: u16 = 0x35;
     pub const BMS_REG_FULL_CAP_NOM: u16 = 0x1A5;
     pub const BMS_REG_RCELL: u16 = 0x14;
-
 }

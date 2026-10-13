@@ -1,5 +1,6 @@
 use embedded_hal::digital::OutputPin;
-
+// don't tell ryan this....
+//
 pub enum LightStatus {
     Red,
     Yellow,
@@ -13,6 +14,9 @@ pub struct StackLight<R, Y, G, S> {
     green: G,
     speaker: S,
 }
+// there's literally no way sending high or low fails, so we're just not gonna return anything lol....
+// but i mean this is just later on if needed
+// it's sending 3v3 rail so we'd have to do something to check or whatever...
 impl<R, Y, G, S> StackLight<R, Y, G, S>
 where
     R: OutputPin,
@@ -53,7 +57,7 @@ where
                 self.speaker.set_low();
             }
         }
-    } 
+    }
     pub fn flush(&mut self) {
         self.red.set_low();
         self.yellow.set_low();

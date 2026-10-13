@@ -1,7 +1,8 @@
 use super::error::BmsError;
 use super::registers::*;
 use embedded_hal::i2c::I2c;
-
+// THIS ISN'T VALID PLEASE CHANGE WHATEVER?
+// I'd have to read the datasheet more to figure out because unit conversions SUCK
 const RSENSE_OHMS: f32 = 0.0;
 pub enum CellType {
     BatI,
