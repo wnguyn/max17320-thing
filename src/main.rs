@@ -47,5 +47,7 @@ async fn main(_spawner: Spawner) {
     let (_tx, _rx) = serial.split();
     let _bms = BMS::new(i2c);
 
-    loop {}
+    loop {
+        // SIX SEVEN!
+    }
 }

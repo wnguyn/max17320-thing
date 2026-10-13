@@ -1,5 +1,5 @@
 #[derive(Clone, Copy)]
-pub enum BmsState {
+pub enum StateLoop {
     Standby,
     Charging,
     Discharging,
@@ -22,4 +22,14 @@ pub enum JetsonMessage {
     Event(FaultReason),
     Fault(FaultReason),
     Tick,
+}
+
+// plan out implmentation??/
+impl StateLoop {
+    // main function to find faults put it in StateLoop::Something
+    // i think?
+    pub fn eval_state() {}
+    //
+    //
+    pub 
 }

@@ -38,7 +38,9 @@ where
         let n = self.rx.read_until_idle(&mut buf).await.unwrap();
         let data = &buf[..n];
 
-        // do some matching here later?????
+        // do some matching here later????
+        // we have to decide what UART callss the jetson would call, but
+        // i don't know dude i'm like 6-7 (SIX SEVEN!) semesters away from taking an embedded systems class
     }
 }
 
