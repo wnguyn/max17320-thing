@@ -11,6 +11,11 @@ this gives you a reproducable shell enviroment that...
 - has rustc and cargo
 - probe-rs tools for flashing
 
+The project selects stable Rust through `rust-toolchain.toml`. On first use,
+rustup installs `rust-analyzer`, `rust-src`, and the `thumbv7em-none-eabihf`
+target. Start your editor from `nix-shell` if rustup is not on your PATH;
+no global default toolchain is required.
+
 
 ## Build
 

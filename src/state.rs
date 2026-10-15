@@ -25,11 +25,3 @@ pub enum JetsonMessage {
 }
 
 // plan out implmentation??/
-impl StateLoop {
-    // main function to find faults put it in StateLoop::Something
-    // i think?
-    pub fn eval_state() {}
-    //
-    //
-    pub 
-}

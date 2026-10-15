@@ -5,12 +5,18 @@ use embassy_executor::Spawner;
 use embassy_stm32::{
     gpio::Speed,
     i2c::{Config as I2cConfig, I2c},
-    rcc::{AHBPrescaler, APBPrescaler, Pll, PllDiv, PllMul, PllPreDiv, PllSource, Sysclk, VoltageScale},
+    rcc::{
+        AHBPrescaler, APBPrescaler, Pll, PllDiv, PllMul, PllPreDiv, PllSource, Sysclk, VoltageScale,
+    },
     time::Hertz,
     usart::{Config as UartConfig, Uart},
 };
+use embassy_sync::mutex::Mutex;
+use firmblop::drivers::jetson::*;
 use firmblop::drivers::stm32h735::max17320::BMS;
 use panic_halt as _;
+mod mutex;
+
 
 #[embassy_executor::main]
 async fn main(_spawner: Spawner) {
@@ -39,15 +45,13 @@ async fn main(_spawner: Spawner) {
     i2c_config.gpio_speed = Speed::Low;
     let i2c = I2c::new_blocking(p.I2C1, p.PB8, p.PB9, i2c_config);
 
-
     // init UART
     let mut uart_config = UartConfig::default();
     uart_config.baudrate = 115_200;
     let serial = Uart::new_blocking(p.USART3, p.PC11, p.PC10, uart_config).unwrap();
-    let (_tx, _rx) = serial.split();
-    let _bms = BMS::new(i2c);
+    let (txrt, recv) = serial.split();
 
-    loop {
-        // SIX SEVEN!
-    }
+    let uart = JetsonUART { tx: txrt, rx: recv };
+    let bms = BMS::new(i2c);
+    loop {}
 }
